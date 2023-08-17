@@ -36,6 +36,7 @@ export function TryItOut() {
     const data = await res.json()
 
     setResponse(data)
+    setResponsePath(`https://me-api.njwon4.workers.dev/api/${requestInput}`)
   }
 
   return (
@@ -46,7 +47,7 @@ export function TryItOut() {
 
       <form className="flex w-full items-center" onSubmit={handleSubmit}>
         <div className="rounded-l-lg bg-zinc-200 p-3 font-mono text-lg dark:bg-zinc-800 dark:text-zinc-100">
-          https://me-api/api/v1/
+          https://me-api.njwon4.workers.dev/api/
         </div>
         <input
           className="p-3 font-mono text-lg ring-1 ring-inset ring-zinc-200 dark:text-zinc-100 dark:ring-zinc-600"
