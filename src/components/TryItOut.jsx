@@ -6,6 +6,9 @@ import { CodeGroup } from '@/components/Code'
 
 export function TryItOut() {
   const [requestInput, setRequestInput] = useState('characters/2')
+  const [responsePath, setResponsePath] = useState(
+    'https://me-api.njwon4.workers.dev/api/characters/2'
+  )
   const [response, setResponse] = useState('')
 
   useEffect(() => {
@@ -17,6 +20,7 @@ export function TryItOut() {
       const data = await res.json()
 
       setResponse(data)
+      setResponsePath(`https://me-api.njwon4.workers.dev/api/${requestInput}`)
     }
 
     fetchData()
@@ -59,7 +63,7 @@ export function TryItOut() {
       </form>
 
       <div>
-        <CodeGroup title="Response" tag="GET" label={`/v1/${requestInput}`}>
+        <CodeGroup title="Response" tag="GET" label={responsePath}>
           <div>{JSON.stringify(response, null, 2)}</div>
         </CodeGroup>
       </div>
