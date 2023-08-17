@@ -1,0 +1,190 @@
+export const metadata = {
+  title: 'Characters',
+  description: 'Here cover the different character endpoints in ME-API.',
+}
+
+# Characters
+
+Characters found in the Mass Effect universe. {{ className: 'lead' }}
+
+## The character model
+
+The character model contains all the information about a character, such as their name, species, gender and more.
+
+### Properties
+
+<Properties>
+  <Property name="id" type="number">
+    Unique ID for the character.
+  </Property>
+  <Property name="name" type="string">
+    The character's name.
+  </Property>
+  <Property name="species" type="object">
+    The species object for this character. Contains `name` and `url` properties.
+  </Property>
+  <Property name="gender" type="object">
+    The gender object for this character. Contains `name` and `url` properties.
+  </Property>
+  <Property name="class" type="string">
+    Description of the character's class e.g. job, role, rank, position or any
+    other label that describes what the character primarily does.
+  </Property>
+</Properties>
+
+---
+
+## List all characters {{ tag: 'GET', label: '/api/v1/characters' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all characters. By default, a maximum of ten results are shown per page.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="limit" type="integer">
+        Limit the number of characters returned. Defaults to 10 if not specified.
+      </Property>
+      <Property name="offset" type="integer">
+        Offset the results by skipping the specified number of characters. Defaults to 0 if not specified.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/api/v1/characters">
+
+    ```bash {{ title: 'cURL' }}
+    curl -G https://me-api.com/api/v1/characters -d limit=10
+    ```
+
+    ```js {{ title: 'JavaScript (fetch)' }}
+    const response = await fetch('https://me-api.com/api/v1/characters?limit=10')
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "meta": {
+        "limit": 10,
+        "offset": 0,
+        "total": 37
+      },
+      "data": [
+        {
+          "id": 1,
+          "name": "Commander Shepard",
+          "species": {
+            "name": "Human",
+            "url": "/api/v1/species/1"
+          },
+          "gender": {
+            "name": "Female",
+            "url": "/api/v1/genders/2"
+          },
+          "class": "N7 Alliance Marine / Spectre"
+        },
+        {
+          "id": 2,
+          "name": "Commander Shepard",
+          "species": {
+            "name": "Human",
+            "url": "/api/v1/species/1"
+          },
+          "gender": {
+            "name": "Male",
+            "url": "/api/v1/genders/1"
+          },
+          "class": "N7 Alliance Marine / Spectre"
+        },
+        {
+          "id": 3,
+          "name": "Liara T'Soni",
+          "species": {
+            "name": "Asari",
+            "url": "/api/v1/species/2"
+          },
+          "gender": {
+            "name": "Non-binary",
+            "url": "/api/v1/genders/3"
+          },
+          "class": "Asari Scientist"
+        }
+        // More results...
+      ]
+    }
+    ```
+
+  </Col>
+</Row>
+
+### Pagination information
+
+The response contains a `meta` object with pagination information.
+
+<Properties>
+  <Property name="limit" type="integer">
+    The maximum number of characters returned per page.
+  </Property>
+  <Property name="offset" type="integer">
+    The number of characters skipped before the first result in the response.
+  </Property>
+  <Property name="total" type="integer">
+    The total number of characters available.
+  </Property>
+</Properties>
+
+---
+
+## Retrieve a character {{ tag: 'GET', label: '/api/v1/characters/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve information for a specific character.
+
+    ### URL parameters
+
+    <Properties>
+      <Property name="id">
+        The unique ID of the character to retrieve.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/api/v1/characters/:id">
+
+    ```bash {{ title: 'cURL' }}
+    curl -G https://me-api.com/api/v1/characters/3
+    ```
+
+    ```js {{ title: 'JavaScript (fetch)' }}
+    const response = await fetch('https://me-api.com/api/v1/characters/3')
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "id": 3,
+      "name": "Liara T'Soni",
+      "species": {
+        "name": "Asari",
+        "url": "/api/v1/species/2"
+      },
+      "gender": {
+        "name": "Non-binary",
+        "url": "/api/v1/genders/3"
+      },
+      "class": "Asari Scientist"
+    }
+    ```
+
+  </Col>
+</Row>
