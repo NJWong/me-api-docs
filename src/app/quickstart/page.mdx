@@ -1,104 +1,90 @@
+import { TryItOut } from '@/components/TryItOut'
+
 export const metadata = {
-  title: 'Quickstart',
-  description:
-    'This guide will get you all set up and ready to use the Protocol API. We’ll cover how to get started an API client and how to make your first API request.',
+  title: 'Quick start',
+  description: 'This guide will get you all set up and ready to use ME-API.',
 }
+
+export const sections = [
+  { title: 'Try it out', id: 'try-it-out' },
+  { title: 'Overview', id: 'overview' },
+  {
+    title: 'Making your first API request',
+    id: 'making-your-first-api-request',
+  },
+]
 
 # Quickstart
 
-This guide will get you all set up and ready to use the Protocol API. We'll cover how to get started using one of our API clients and how to make your first API request. We'll also look at where to go next to find all the information you need to take full advantage of our powerful REST API. {{ className: 'lead' }}
+This guide will get you set up and ready to use ME-API.
 
-<Note>
-  Before you can make requests to the Protocol API, you will need to grab your
-  API key from your dashboard. You find it under [Settings &raquo; API](#).
-</Note>
+<TryItOut />
 
-## Choose your client
+## Overview
 
-Before making your first API request, you need to pick which API client you will use. In addition to good ol' cURL HTTP requests, Protocol offers clients for JavaScript, Python, and PHP. In the following example, you can see how to install each client.
+No authentication is required to access ME-API. All resources are open and fully available.
 
-<CodeGroup>
+The API is versioned, and the current version is `v1`. The base URL for all requests is `https://me-api.njwon4.workers.dev/api/v1`.
 
-```bash {{ title: 'cURL' }}
-# cURL is most likely already installed on your machine
-curl --version
-```
+Since this is a REST API, you can use your preferred language and HTTP client to make requests.
 
-```bash {{ language: 'js' }}
-# Install the Protocol JavaScript SDK
-npm install @example/protocol-api --save
-```
+A good old cURL or fetch request will also work just fine:
 
-```bash {{ language: 'python' }}
-# Install the Protocol Python SDK
-pip install protocol_api
-```
-
-```bash {{ language: 'php' }}
-# Install the Protocol PHP SDK
-composer require protocol/sdk
-```
-
-</CodeGroup>
-
-<div className="not-prose">
-  <Button
-    href="/sdks"
-    variant="text"
-    arrow="right"
-    children="Check out our list of first-party SDKs"
-  />
-</div>
+- [cURL](https://curl.se/)
+- [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
 ## Making your first API request
 
-After picking your preferred client, you are ready to make your first call to the Protocol API. Below, you can see how to send a GET request to the Conversations endpoint to get a list of all your conversations. In the cURL example, results are limited to ten conversations, the default page length for each client.
+After picking your preferred language and HTTP client, you are ready to make your first call to ME-API. Below, you can see how to send a GET request to the `characters` endpoint to get a list of characters.
 
-<CodeGroup tag="GET" label="/v1/conversations">
+<CodeGroup tag="GET" label="/v1/characters">
 
 ```bash {{ title: 'cURL' }}
-curl -G https://api.protocol.chat/v1/conversations \
-  -H "Authorization: Bearer {token}" \
-  -d limit=10
+curl -G https://me-api.njwon4.workers.dev/api/v1/characters
 ```
 
-```js
-import ApiClient from '@example/protocol-api'
+```js {{ title: 'JavaScript (fetch)' }}
+fetch('https://me-api.njwon4.workers.dev/api/v1/characters')
+  .then((response) => {
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data)
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+```
 
-const client = new ApiClient(token)
+```js {{ title: 'JavaScript (axios)' }}
+import axios from 'axios'
 
-await client.conversations.list()
+axios
+  .get('https://me-api.njwon4.workers.dev/api/v1/characters')
+  .then((response) => {
+    const data = response.data
+    console.log(data)
+  })
+  .catch((error) => {
+    console.error(error)
+  })
 ```
 
 ```python
-from protocol_api import ApiClient
+import requests
 
-client = ApiClient(token)
-
-client.conversations.list()
-```
-
-```php
-$client = new \Protocol\ApiClient($token);
-
-$client->conversations->list();
+response = requests.get('https://me-api.njwon4.workers.dev/api/v1/characters')
+data = response.json()
+print(data)
 ```
 
 </CodeGroup>
 
 <div className="not-prose">
   <Button
-    href="/conversations"
+    href="/characters"
     variant="text"
     arrow="right"
-    children="Read the docs for the Conversations endpoint"
+    children="Read the docs for the characters endpoint"
   />
 </div>
-
-## What's next?
-
-Great, you're now set up with an API client and have made your first request to the API. Here are a few links that might be handy as you venture further into the Protocol API:
-
-- [Grab your API key from the Protocol dashboard](#)
-- [Check out the Conversations endpoint](/conversations)
-- [Learn about the different error messages in Protocol](/errors)

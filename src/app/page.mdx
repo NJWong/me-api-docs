@@ -10,6 +10,7 @@ export const metadata = {
 }
 
 export const sections = [
+  { title: 'Motivation', id: 'motivation' },
   { title: 'Usage', id: 'usage' },
   { title: 'Resources', id: 'resources' },
   { title: 'Disclaimer', id: 'disclaimer' },
@@ -25,13 +26,15 @@ This API is free and open for use by anyone, **no authentication** is required. 
 
 We provide ME-API **free of charge**, and is intended to be used for small-scale personal projects or as an educational tool. It is rate-limited to **100 requests per minute**, and **1000 requests per day**. If you require a higher rate limit, please get in contact.
 
+## Motivation
+
+When learning new technologies, I like to build something that I'm passionate about. I'm a huge fan of the Mass Effect series, and I wanted to build something that I could use in my own projects. I also wanted to build something that other people could use, and I thought that an API would be a great way to do that.
+
+[SWAPI](https://swapi.dev/) and [PokeAPI](https://pokeapi.co/) are two of my favourite public APIs, and I wanted to build something similar for Mass Effect. I wanted to build something that was easy to use, and that anyone could use in their own projects. I also wanted to build something that was free and open-source, and that anyone could contribute to.
+
 ## Usage
 
-Access information about the Mass Effect universe and seamlessly integrate it into your project. {{ className: 'lead' }}
-
 Whether you're using JavaScript, Python, or Go, this API is easy to use. Any application that can send HTTP requests can use ME-API. You can use it to build a website, mobile app, desktop app, or even a CLI tool!
-
-Try it out for yourself:
 
 <div className="not-prose mb-16 mt-6 flex gap-3">
   <Button href="/quickstart" arrow="right" children="Quick start" />
