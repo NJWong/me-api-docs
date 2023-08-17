@@ -191,10 +191,8 @@ export const navigation = [
     links: [
       { title: 'Getting started', href: '/' },
       { title: 'Quick start', href: '/quickstart' },
-      // { title: 'Authentication', href: '/authentication' },
-      // { title: 'Pagination', href: '/pagination' },
+      { title: 'Pagination', href: '/pagination' },
       // { title: 'Errors', href: '/errors' },
-      // { title: 'Webhooks', href: '/webhooks' },
     ],
   },
   {

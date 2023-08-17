@@ -6,53 +6,197 @@ export const metadata = {
 
 # Pagination
 
-In this guide, we will look at how to work with paginated responses when querying the Protocol API. By default, all responses limit results to ten. However, you can go as high as 100 by adding a `limit` parameter to your requests. If you are using one of the official Protocol API client libraries, you don't need to worry about pagination, as it's all being taken care of behind the scenes. {{ className: 'lead' }}
+All top-level resource endpoints or endpoints that return list of objects are paginated, and limit results to 10 by default. {{ class: 'lead' }}
 
-When an API response returns a list of objects, no matter the amount, pagination is supported. In paginated responses, objects are nested in a `data` attribute and have a `has_more` attribute that indicates whether you have reached the end of the last page. You can use the `starting_after` and `endding_before` query parameters to browse pages.
+<Note>
+  A **top-level resource endpoint** is an endpoint that is not nested under
+  another resource. For example, `/api/v1/characters` is a top-level resource
+  endpoint, while `/api/v1/characters/{conversation_id}` is not.
+</Note>
 
-## Example using cursors
+In paginated responses, the list of paginated objects is wrapped in a `data` attribute. The response also returns a `meta` attribute which is an object containing pagination information.
+
+---
+
+## Meta attributes
+
+```json {{ title: 'Example meta' }}
+{
+  "meta": {
+    "limit": 10,
+    "offset": 0,
+    "total": 45
+  },
+  "data": [
+    // List of paginated objects
+  ]
+}
+```
+
+<Properties>
+  <Property name="limit" type="number">
+    The maximum number of entries returned in the response.
+  </Property>
+  <Property name="offset" type="string">
+    The number of entries skipped before the first result in the response.
+  </Property>
+  <Property name="total" type="object">
+    The total count of entries available for that resource.
+  </Property>
+</Properties>
+
+---
+
+## Query parameters
+
+Endpoints that return paginated responses accept the following query parameters:
+
+<Properties>
+  <Property name="limit" type="number">
+    The maximum number of entries to return in the response. **Defaults to 10 if
+    not provided.**
+  </Property>
+  <Property name="offset" type="string">
+    The number of entries to skip before the first result in the response.
+    **Defaults to 0 if not provided.**
+  </Property>
+</Properties>
+
+## Example using offsets
+
+Using the above query parameters, you can paginate through the results of a request by incrementing the offset by the limit until you reach the end of the result set. {{ class: 'lead' }}
 
 <Row>
   <Col>
 
-    In this example, we request the page that starts after the conversation with id `s4WycXedwhQrEFuM`. As a result, we get a list of three conversations and can tell by the `has_more` attribute that we have reached the end of the resultset.
-
-    <Properties>
-      <Property name="starting_after" type="string">
-        The last ID on the page you're currently on when you want to fetch the next page.
-      </Property>
-      <Property name="ending_before" type="string">
-        The first ID on the page you're currently on when you want to fetch the previous page.
-      </Property>
-      <Property name="limit" type="integer">
-        Limit the number of items returned.
-      </Property>
-    </Properties>
+    In this example, we request the first page of characters, specifying 20 results per page.
 
   </Col>
   <Col>
 
     ```bash {{ title: 'Manual pagination using cURL' }}
-    curl -G https://api.protocol.chat/v1/conversations \
-      -H "Authorization: Bearer {token}" \
-      -d starting_after="s4WycXedwhQrEFuM" \
-      -d limit=10
+    curl -G https://me-api.njwon4.workers.dev/api/v1/characters \
+      -d limit=20
     ```
 
     ```json {{ title: 'Paginated response' }}
     {
-      "has_more": false,
+      "meta": {
+        "limit": 20,
+        "offset": 0,
+        "total": 45
+      },
       "data": [
         {
-          "id": "WAz8eIbvDR60rouK",
+          "id": 1,
           // ...
         },
         {
-          "id": "hSIhXBhNe8X1d8Et"
+          "id": 2
           // ...
         },
         {
-          "id": "fbwYwpi9C2ybt6Yb"
+          "id": 3
+          // ...
+        },
+        // ...
+        {
+          "id": 20
+          // ...
+        },
+      ]
+    }
+    ```
+
+  </Col>
+
+  <Col>
+
+    In the next request, we can request the second page of characters by specifying an `offset` of 20.
+
+  </Col>
+  <Col>
+
+    ```bash {{ title: 'Manual pagination using cURL' }}
+    curl -G https://me-api.njwon4.workers.dev/api/v1/characters \
+      -d offset=20 \
+      -d limit=20
+    ```
+
+    ```json {{ title: 'Paginated response' }}
+    {
+      "meta": {
+        "limit": 20,
+        "offset": 20,
+        "total": 45
+      },
+      "data": [
+        {
+          "id": 21,
+          // ...
+        },
+        {
+          "id": 22
+          // ...
+        },
+        {
+          "id": 23
+          // ...
+        },
+        // ...
+        {
+          "id": 30
+          // ...
+        }
+      ]
+    }
+    ```
+
+  </Col>
+
+  <Col>
+
+    In the final request, we increase the `offset` to 40 to request the next page of characters.
+
+    There are two ways we know that we have reached the end of the result set:
+    1. If the number of objects returned in `data` is less than the `limit` specified in the request
+    2. **OR** if the number of objects in `data` is equal to `limit`, then we have reached the end of the result set if the `offset` + `limit` is greater than or equal to `total`.
+
+  </Col>
+  <Col>
+
+    ```bash {{ title: 'Manual pagination using cURL' }}
+    curl -G https://me-api.njwon4.workers.dev/api/v1/characters \
+      -d offset=40 \
+      -d limit=20
+    ```
+
+    ```json {{ title: 'Paginated response' }}
+    {
+      "meta": {
+        "limit": 20,
+        "offset": 40,
+        "total": 45
+      },
+      "data": [
+        {
+          "id": 41,
+          // ...
+        },
+        {
+          "id": 42
+          // ...
+        },
+        {
+          "id": 43
+          // ...
+        },
+        {
+          "id": 44
+          // ...
+        },
+        {
+          "id": 45
           // ...
         }
       ]

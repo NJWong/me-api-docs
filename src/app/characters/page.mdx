@@ -39,7 +39,7 @@ The character model contains all the information about a character, such as thei
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all characters. By default, a maximum of ten results are shown per page.
+    This endpoint returns a paginated list of all characters. By default, a maximum of ten results are shown per page.
 
     ### Optional attributes
 
@@ -51,6 +51,15 @@ The character model contains all the information about a character, such as thei
         Offset the results by skipping the specified number of characters. Defaults to 0 if not specified.
       </Property>
     </Properties>
+
+    <div className="not-prose">
+      <Button
+        href="/pagination"
+        variant="text"
+        arrow="right"
+        children="Read the docs for pagination"
+      />
+    </div>
 
   </Col>
   <Col sticky>
@@ -121,22 +130,6 @@ The character model contains all the information about a character, such as thei
 
   </Col>
 </Row>
-
-### Pagination information
-
-The response contains a `meta` object with pagination information.
-
-<Properties>
-  <Property name="limit" type="integer">
-    The maximum number of characters returned per page.
-  </Property>
-  <Property name="offset" type="integer">
-    The number of characters skipped before the first result in the response.
-  </Property>
-  <Property name="total" type="integer">
-    The total number of characters available.
-  </Property>
-</Properties>
 
 ---
 
