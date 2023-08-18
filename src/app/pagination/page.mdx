@@ -1,3 +1,5 @@
+import { apiPathV1 } from '../../consts/paths.js'
+
 export const metadata = {
   title: 'Pagination',
   description:
@@ -6,7 +8,7 @@ export const metadata = {
 
 # Pagination
 
-All top-level resource endpoints or endpoints that return list of objects are paginated, and limit results to 10 by default. {{ class: 'lead' }}
+All top-level resource endpoints or endpoints that return list of objects are paginated, and limit results to 10 by default. {{ className: 'lead' }}
 
 <Note>
   A **top-level resource endpoint** is an endpoint that is not nested under
@@ -64,7 +66,7 @@ Endpoints that return paginated responses accept the following query parameters:
 
 ## Example using offsets
 
-Using the above query parameters, you can paginate through the results of a request by incrementing the offset by the limit until you reach the end of the result set. {{ class: 'lead' }}
+Using the above query parameters, you can paginate through the results of a request by incrementing the offset by the limit until you reach the end of the result set. {{ className: 'lead' }}
 
 <Row>
   <Col>
@@ -73,11 +75,11 @@ Using the above query parameters, you can paginate through the results of a requ
 
   </Col>
   <Col>
-
-    ```bash {{ title: 'Manual pagination using cURL' }}
-    curl -G https://me-api.njwon4.workers.dev/api/v1/characters \
-      -d limit=20
-    ```
+    <CodeGroup title="Manual pagination using cURL">
+      <code language="bash">
+        {`curl -G ${apiPathV1}/v1/characters -d limit=20`}
+      </code>
+    </CodeGroup>
 
     ```json {{ title: 'Paginated response' }}
     {
@@ -117,11 +119,11 @@ Using the above query parameters, you can paginate through the results of a requ
   </Col>
   <Col>
 
-    ```bash {{ title: 'Manual pagination using cURL' }}
-    curl -G https://me-api.njwon4.workers.dev/api/v1/characters \
-      -d offset=20 \
-      -d limit=20
-    ```
+    <CodeGroup title="Manual pagination using cURL">
+      <code language="bash">
+        {`curl -G ${apiPathV1}/v1/characters -d limit=20 -d offset=20`}
+      </code>
+    </CodeGroup>
 
     ```json {{ title: 'Paginated response' }}
     {
@@ -165,11 +167,11 @@ Using the above query parameters, you can paginate through the results of a requ
   </Col>
   <Col>
 
-    ```bash {{ title: 'Manual pagination using cURL' }}
-    curl -G https://me-api.njwon4.workers.dev/api/v1/characters \
-      -d offset=40 \
-      -d limit=20
-    ```
+    <CodeGroup title="Manual pagination using cURL">
+      <code language="bash">
+        {`curl -G ${apiPathV1}/v1/characters -d limit=20 -d offset=40`}
+      </code>
+    </CodeGroup>
 
     ```json {{ title: 'Paginated response' }}
     {
