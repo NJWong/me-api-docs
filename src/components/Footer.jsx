@@ -102,7 +102,17 @@ function SmallPrint() {
   return (
     <div className="flex flex-col items-center justify-between gap-5 border-t border-zinc-900/5 pt-8 dark:border-white/5 sm:flex-row">
       <p className="text-xs text-zinc-600 dark:text-zinc-400">
-        &copy; Copyright {new Date().getFullYear()}. All rights reserved.
+        Created and maintained by{' '}
+        <a
+          href="https://github.com/NJWong"
+          target="_blank"
+          className="text-emerald-600 hover:underline"
+        >
+          Nicholas Wong
+        </a>
+        . This is a fan-made API, and is not affiliated with BioWare or EA in
+        any way. All Mass Effect trademarks and and other intellectual property
+        belong to their respective owners.
       </p>
       <div className="flex gap-4">
         <SocialLink href="#" icon={TwitterIcon}>
