@@ -78,6 +78,14 @@ export function TryItOut() {
               characters/4
             </button>
           </li>
+          <li>
+            <button
+              className="font-bold text-emerald-500 hover:underline"
+              onClick={() => handleClick('species')}
+            >
+              species
+            </button>
+          </li>
         </ul>
       </div>
 

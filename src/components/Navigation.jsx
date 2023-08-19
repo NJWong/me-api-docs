@@ -200,7 +200,7 @@ export const navigation = [
     links: [
       { title: 'Characters', href: '/characters' },
       { title: 'Genders', href: '/genders' },
-      // { title: 'Conversations', href: '/conversations' },
+      { title: 'Species', href: '/species' },
       // { title: 'Messages', href: '/messages' },
       // { title: 'Groups', href: '/groups' },
       // { title: 'Attachments', href: '/attachments' },
