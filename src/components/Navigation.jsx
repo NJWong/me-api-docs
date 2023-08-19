@@ -199,7 +199,7 @@ export const navigation = [
     title: 'Resources',
     links: [
       { title: 'Characters', href: '/characters' },
-      // { title: 'Contacts', href: '/contacts' },
+      { title: 'Genders', href: '/genders' },
       // { title: 'Conversations', href: '/conversations' },
       // { title: 'Messages', href: '/messages' },
       // { title: 'Groups', href: '/groups' },
