@@ -41,11 +41,11 @@ After picking your preferred language and HTTP client, you are ready to make you
 <CodeGroup tag="GET" label="/v1/characters">
 
 ```bash {{ title: 'cURL' }}
-curl -G https://me-api.njwon4.workers.dev/api/v1/characters
+curl -G https://me-api.njwong.workers.dev/api/v1/characters
 ```
 
 ```js {{ title: 'JavaScript (fetch)' }}
-fetch('https://me-api.njwon4.workers.dev/api/v1/characters')
+fetch('https://me-api.njwong.workers.dev/api/v1/characters')
   .then((response) => {
     return response.json()
   })
@@ -61,7 +61,7 @@ fetch('https://me-api.njwon4.workers.dev/api/v1/characters')
 import axios from 'axios'
 
 axios
-  .get('https://me-api.njwon4.workers.dev/api/v1/characters')
+  .get('https://me-api.njwong.workers.dev/api/v1/characters')
   .then((response) => {
     const data = response.data
     console.log(data)
@@ -74,7 +74,7 @@ axios
 ```python
 import requests
 
-response = requests.get('https://me-api.njwon4.workers.dev/api/v1/characters')
+response = requests.get('https://me-api.njwong.workers.dev/api/v1/characters')
 data = response.json()
 print(data)
 ```
